@@ -18,4 +18,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(TransactionType::class, 'transaction_type_id', 'id' );
+    }
 }

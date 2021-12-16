@@ -211,7 +211,13 @@
                 <ul id="side-menu" class="sidebar-menu">
                     <li class="dropdown active"><a href="#"><i class="icon-home mr-1"></i>User Dashboard</a>
                         <ul>
-                            <li><a href="{{ route('user') }}"><i class="icon-rocket"></i> Home</a></li>
+                            <li>
+                                <a href="{{ route('user') }}"><i class="icon-rocket"></i> Home</a>
+                            </li>
+                            <li>
+                                <a onclick="logout()" href="{{ route('logout') }}"><i class="icon-power"></i> Logout</a>
+                            </li>
+                            <form action="{{ route('logout') }}" id="logout-form" method="post">@csrf</form>
                         </ul>
                     </li>
                 </ul>
@@ -291,8 +297,13 @@
                 alert("{{ session('success') }}")
             </script>
         @endif
-    </body>
-    <!-- END: Body-->
 
-<!-- Mirrored from html.designstream.co.in/pick/html/index-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 16 Oct 2021 11:19:40 GMT -->
+
+        <script>
+            function logout() {
+                event.preventDefault();
+                $('#logout-form').submit();
+            }
+        </script>
+    </body>
 </html>
