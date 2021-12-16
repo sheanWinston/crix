@@ -148,7 +148,7 @@
                                         <i class="fas fa-dollar-sign card-liner-icon mt-2 text-white"></i>
                                         <div class="card-liner-content">
                                             <h2 class="card-liner-title text-white">CRX
-                                                {{ Auth::user()->wallet->balance }}</h2>
+                                                {{ number_format(Auth::user()->wallet->balance) }}</h2>
                                             <h6 class="card-liner-subtitle text-white">Crix Balance</h6>
                                         </div>
                                     </div>
@@ -276,7 +276,7 @@
 
                 <form action="{{ route('wallet.fund') }}" method="post">@csrf
                     @foreach ($errors->all() as $err)
-                        <p class="text-center text-danger">{{ $err }}</p>
+                    <p class="text-center text-danger">{{ $err }}</p>
                     @endforeach
                     <div class="form-group">
                         <label for="">Amount</label>
@@ -287,6 +287,17 @@
                         <label for="">Password</label>
                         <input type="password" name="password" class="form-control">
                     </div>
+
+                    <input type="hidden" name="email" value="{{ Auth::user()->email }}"> {{-- required --}}
+                    <input type="hidden" name="orderID" value="345">
+                    <input type="hidden" name="quantity" value="100">
+                    <input type="hidden" name="currency" value="NGN">
+                    <input type="hidden" name="metadata" value="{{ json_encode($array = ['key_name' => 'value',]) }}">
+                    {{-- For other necessary things you want to add to your payload. it is optional though --}}
+                    <input type="text" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
+                    <input type="hidden" name="callback_url" value="{{route('wallet.callback')}}">
+
+
 
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
